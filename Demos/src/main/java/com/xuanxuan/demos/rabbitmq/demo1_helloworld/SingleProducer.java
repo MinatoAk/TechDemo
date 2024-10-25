@@ -11,7 +11,7 @@ public class SingleProducer {
     /**
      * 向名为 hello 的队列发送消息
      */
-    private final static String QUEUE_NAME = "demo1_queue";
+    private final static String QUEUE_NAME = "demo1.queue";
 
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();

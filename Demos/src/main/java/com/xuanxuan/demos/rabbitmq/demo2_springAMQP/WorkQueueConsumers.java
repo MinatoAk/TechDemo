@@ -3,10 +3,9 @@ package com.xuanxuan.demos.rabbitmq.demo2_springAMQP;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
-@Component
 public class WorkQueueConsumers {
 
-    private final String WORK_QUEUE = "work_queue";
+    private final String WORK_QUEUE = "work.queue";
 
     @RabbitListener(queues = WORK_QUEUE)
     public void workQueueConsumer1(String message) throws InterruptedException {
