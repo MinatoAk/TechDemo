@@ -15,7 +15,7 @@ public class DeclareQueueListener {
             key = {"red", "yellow"}
     ))
     public void listenNewQueue1(String msg) {
-        System.out.println("DeclareQueueListener: [" + msg + "]");
+        System.out.println("DeclareQueueListener 1: [" + msg + "]");
     }
 
     @RabbitListener(bindings = @QueueBinding(
@@ -24,6 +24,6 @@ public class DeclareQueueListener {
             key = {"red", "blue"}
     ))
     public void listenNewQueue2(String msg) {
-        System.out.println("DeclareQueueListener: [" + msg + "]");
+        System.out.println("DeclareQueueListener 2: [" + msg + "]");
     }
 }
