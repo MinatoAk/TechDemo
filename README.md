@@ -11,6 +11,7 @@
 正在进行 On Going:
 
 - RabbitMQ
+- 设计模式
 
 </br>
 
@@ -22,9 +23,9 @@
 
 即将到来 Coming Soon:
 
+- 并发编程
 - Redis
 - ElasticSearch
-- 设计模式
 
 </br>
 
