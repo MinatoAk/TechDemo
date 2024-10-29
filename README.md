@@ -12,6 +12,7 @@
 
 - RabbitMQ
 - 设计模式
+- Redis
 
 </br>
 
@@ -24,7 +25,6 @@
 即将到来 Coming Soon:
 
 - 并发编程
-- Redis
 - ElasticSearch
 
 </br>
@@ -54,3 +54,33 @@
 - demo5: 测试了如何收发对象到消息队列，消费者的方法入参类型一定要和生产者发进去的类型一致，另外我的习惯是用 `HuTool` 工具库转成 `JsonStr` 再发到队列里，这样一直收到的就是 `String` 类型，消费者再调个 `toBean()` 就可以了;
 
   > 使用 `JsonStr` 可以传的内容更少，默认传对象会调用消息转换器，使用 JDK 序列化，大小会变大;
+
+</br>
+
+</br>
+
+## Redis
+
+### 食用指南
+
+在使用前请您先根据自己的配置来改写对应的 yml 文件，保证 Redis 可用。并且更新 Maven 中的相关依赖。
+
+
+
+### demo 指南
+
+- demo1: 互斥锁解决缓存击穿问题，在本 demo 中，使用 Caffeine 本地缓存来缓存对象，并且使用 Redisson 分布式锁来解决缓存击穿问题。在 config 中配置了 Redisson 客户端，在 constant 中指明了相关的 `<lock_key>`，请您在自己写代码时也遵循相关规范。
+
+</br>
+
+</br>
+
+## Design Pattern
+
+### demo 指南
+
+- demo1: 单例模式的四种实现方式，包括饿汉式，懒汉式，双检锁，静态内部类；
+
+</br>
+
+</br>
