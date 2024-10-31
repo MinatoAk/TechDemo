@@ -44,6 +44,7 @@ public class CacheBreakDownDemo {
 
         try {
             // 3.1 抢互斥锁
+            // 抢锁过程最多等待 3s，拿到锁 15s 后超时释放
             boolean success = lock.tryLock(3, 15, TimeUnit.SECONDS);
 
             // 3.2 如果抢锁失败休眠 30s 后自旋重试
