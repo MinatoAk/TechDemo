@@ -13,6 +13,7 @@
 - RabbitMQ
 - 设计模式
 - Redis
+- Spring
 
 </br>
 
@@ -26,7 +27,6 @@
 
 - 并发编程
 - ElasticSearch
-- Spring
 
 </br>
 
@@ -71,6 +71,17 @@
 ### demo 指南
 
 - demo1: 互斥锁解决缓存击穿问题，在本 demo 中，使用 Caffeine 本地缓存来缓存对象，并且使用 Redisson 分布式锁来解决缓存击穿问题。在 config 中配置了 Redisson 客户端，在 constant 中指明了相关的 `<lock_key>`，请您在自己写代码时也遵循相关规范。
+
+</br>
+
+</br>
+
+## Spring
+
+### demo 指南
+
+- demo1: 使用 Spring MVC 拦截器进行性能监控，计算请求的处理时间；
+- demo2: 展示了全局异常处理器的实现，搭配自定义异常和状态码枚举类使用，并且展示了抛异常工具类的实现，掌握了这个 demo 就明白了实际项目处理异常的流程；
 
 </br>
 
