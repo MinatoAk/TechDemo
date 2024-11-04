@@ -4,16 +4,16 @@
 
 记录了轩轩学习各种后端中间件的过程用到的 Demo，希望对你有帮助！
 
-在启动对应的 demo 时请您**务必阅读对应栏目下的食用指南**！
+在启动对应的 demo 时请您**务必阅读对应栏目下的食用指南**！在 test 下包含对应 demo 的测试方法！
 
 </br>
 
 正在进行 On Going:
 
 - RabbitMQ
-- 设计模式
 - Redis
 - Spring
+- DesignPattern
 
 </br>
 
@@ -71,6 +71,7 @@
 ### demo 指南
 
 - demo1: 互斥锁解决缓存击穿问题，在本 demo 中，使用 Caffeine 本地缓存来缓存对象，并且使用 Redisson 分布式锁来解决缓存击穿问题。在 config 中配置了 Redisson 客户端，在 constant 中指明了相关的 `<lock_key>`，请您在自己写代码时也遵循相关规范。
+- demo2: 使用 Redisson 内置库实现令牌桶限流方法，区分普通用户和会员用户，封装了通用的方法，开箱即用；
 
 </br>
 
