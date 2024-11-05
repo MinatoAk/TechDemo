@@ -4,14 +4,15 @@
 
 记录了轩轩学习各种后端中间件的过程用到的 Demo，希望对你有帮助！
 
-在启动对应的 demo 时请您**务必阅读对应栏目下的食用指南**！在 test 下包含对应 demo 的测试方法！
+在启动对应的 demo 时请您**务必阅读对应栏目下的食用指南**，在 test 下包含对应 demo 的测试方法。
 
 </br>
 
 正在进行 On Going:
 
-- RabbitMQ
 - Redis
+- Concurrent Programming
+- RabbitMQ
 - Spring
 - DesignPattern
 
@@ -25,8 +26,46 @@
 
 即将到来 Coming Soon:
 
-- 并发编程
 - ElasticSearch
+
+</br>
+
+</br>
+
+## Redis
+
+### 食用指南
+
+在使用前请您先根据自己的配置来改写对应的 yml 文件，保证 Redis 可用，并且更新 Maven 中的相关依赖。
+
+
+
+### demo 指南
+
+- demo1: 互斥锁解决缓存击穿问题，在本 demo 中，使用 Caffeine 本地缓存来缓存对象，并且使用 Redisson 分布式锁来解决缓存击穿问题。在 config 中配置了 Redisson 客户端，在 constant 中指明了相关的 `<lock_key>`，请您在自己写代码时也遵循相关规范；
+- demo2: 使用 Redisson 内置库实现令牌桶限流方法，区分普通用户和会员用户，封装了通用的方法，开箱即用；
+
+</br>
+
+</br>
+
+## Concurrent Programming
+
+### demo 指南
+
+- demo1: 在 config 中自定义线程池并注册为单例 Bean，在 test 中演示如何提交任务到线程池以及如何监控线程池状态；
+
+</br>
+
+</br>
+
+## Spring
+
+### demo 指南
+
+- demo1: 使用 Spring MVC 拦截器进行性能监控，计算请求的处理时间；
+- demo2: 实现全局异常处理器，搭配自定义异常和状态码枚举类使用，另外还实现抛异常工具类，掌握了这个 demo 就明白了实际项目处理异常的流程；
+- demo3: AOP 实现权限校验功能；
 
 </br>
 
@@ -55,35 +94,6 @@
 - demo5: 测试了如何收发对象到消息队列，消费者的方法入参类型一定要和生产者发进去的类型一致，另外我的习惯是用 `HuTool` 工具库转成 `JsonStr` 再发到队列里，这样一直收到的就是 `String` 类型，消费者再调个 `toBean()` 就可以了;
 
   > 使用 `JsonStr` 可以传的内容更少，默认传对象会调用消息转换器，使用 JDK 序列化，大小会变大;
-
-</br>
-
-</br>
-
-## Redis
-
-### 食用指南
-
-在使用前请您先根据自己的配置来改写对应的 yml 文件，保证 Redis 可用。并且更新 Maven 中的相关依赖。
-
-
-
-### demo 指南
-
-- demo1: 互斥锁解决缓存击穿问题，在本 demo 中，使用 Caffeine 本地缓存来缓存对象，并且使用 Redisson 分布式锁来解决缓存击穿问题。在 config 中配置了 Redisson 客户端，在 constant 中指明了相关的 `<lock_key>`，请您在自己写代码时也遵循相关规范。
-- demo2: 使用 Redisson 内置库实现令牌桶限流方法，区分普通用户和会员用户，封装了通用的方法，开箱即用；
-
-</br>
-
-</br>
-
-## Spring
-
-### demo 指南
-
-- demo1: 使用 Spring MVC 拦截器进行性能监控，计算请求的处理时间；
-- demo2: 实现全局异常处理器，搭配自定义异常和状态码枚举类使用，另外还实现抛异常工具类，掌握了这个 demo 就明白了实际项目处理异常的流程；
-- demo3: AOP 实现权限校验功能；
 
 </br>
 
