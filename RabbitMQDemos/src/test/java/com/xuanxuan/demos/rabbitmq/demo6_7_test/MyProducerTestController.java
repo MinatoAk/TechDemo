@@ -1,11 +1,16 @@
 package com.xuanxuan.demos.rabbitmq.demo6_7_test;
 
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.json.JSONUtil;
+import com.xuanxuan.demos.rabbitmq.demo6_7_businessMQ.App;
 import com.xuanxuan.demos.rabbitmq.demo6_7_businessMQ.MyMessageProducer;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * 模拟一个 Controller，提交任务到消息队列
@@ -15,6 +20,35 @@ public class MyProducerTestController {
 
     @Resource
     private MyMessageProducer myMessageProducer;
+
+    /**
+     * 这个是我真实改进项目的时候写的扔到消息队列的内容
+     * 演示一下到底如何发对象和取对象，非常非常重要！！
+     *
+     * 是一个 controller 中的 add 方法，本来业务非常复杂
+     * 涉及到多级缓存，我这里直接做了个简化，重点关注 MQ 的部分
+     */
+    @Test
+    public void addUserAnswer() {
+        // 1. 修改数据库任务状态字段为执行中
+        // 具体可以通过 new UserAnswer, setUserAnswer(id), service.updateById(userAnswer)
+        updateTaskStatusRunning();
+
+        // 2. 提交任务到消息队列，具体的参数由消费者的需要来决定
+        App app = new App();
+        app.setId(1);
+        app.setAppName("EXAMPLE_APPNAME");
+
+        List<String> choices = Arrays.asList("A", "B", "C", "D");
+
+        HashMap<String, Object> msg = new HashMap<>();
+        msg.put("cacheKey", "EXAMPLE_CACHEKEY");
+        msg.put("app", app);
+        msg.put("choices", choices);
+
+        String msgJson = JSONUtil.toJsonStr(msg);
+        myMessageProducer.sendMessage(msgJson);
+    }
 
     @Test
     public void handleObject() {
@@ -38,4 +72,7 @@ public class MyProducerTestController {
         myMessageProducer.sendMessageWithId(String.valueOf(objectId), messageId);
     }
 
+    private void updateTaskStatusRunning() {
+        System.out.println("[x] 修改数据库任务状态字段为执行中: running");
+    }
 }

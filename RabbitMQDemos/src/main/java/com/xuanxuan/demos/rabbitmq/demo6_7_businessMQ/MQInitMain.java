@@ -20,6 +20,7 @@ public class MQInitMain {
 
             channel.exchangeDeclare(MyMQConstant.BUSINESS_EXCHANGE, "direct", true, false, null);
 
+            // todo: 可以给队列声明 TTL DLX max-length
             channel.queueDeclare(MyMQConstant.BUSINESS_QUEUE, true, false, false, null);
 
             channel.queueBind(MyMQConstant.BUSINESS_QUEUE, MyMQConstant.BUSINESS_EXCHANGE, MyMQConstant.BUSINESS_BINDING_KEY);
