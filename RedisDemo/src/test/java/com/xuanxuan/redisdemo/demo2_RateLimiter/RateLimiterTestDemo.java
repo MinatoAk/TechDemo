@@ -18,7 +18,7 @@ public class RateLimiterTestDemo {
         // 模拟同时发请求，这边肯定在一秒之内执行完
         // 理想情况：vip 用户可以全执行完
         for (int i = 0; i < 5; i ++) {
-            redisLimiterManager.doRateLimiter(testUserId, "vip");
+            redisLimiterManager.doRateLimiter(testUserId, true);
             System.out.println("Vip Success " + i + " !");
         }
 
@@ -28,7 +28,7 @@ public class RateLimiterTestDemo {
         // 模拟同时发请求，这边肯定在一秒之内执行完
         // 理想情况：普通用户只执行 1 次就抛异常了
         for (int i = 0; i < 5; i ++) {
-            redisLimiterManager.doRateLimiter(testUserId, "member");
+            redisLimiterManager.doRateLimiter(testUserId, false);
             System.out.println("Member Success " + i + " !");
         }
     }
