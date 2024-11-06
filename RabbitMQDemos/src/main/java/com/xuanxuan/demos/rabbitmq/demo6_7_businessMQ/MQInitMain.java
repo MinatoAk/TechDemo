@@ -1,4 +1,4 @@
-package com.xuanxuan.demos.rabbitmq.demo6_businessMQ;
+package com.xuanxuan.demos.rabbitmq.demo6_7_businessMQ;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
