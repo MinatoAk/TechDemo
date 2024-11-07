@@ -89,6 +89,8 @@
 
 - demo7: 合并在 demo6 中，展示了如何给消息添加 TTL 和 messageId，有了 messageId 就可以保证消息的幂等性；
 
+- demo8: 在 config 中注册 RabbitAdmin，用于监控队列和交换机等信息，实现 RabbitService 提供获取某个队列当前任务数的方法；
+
 </br>
 
 </br>
