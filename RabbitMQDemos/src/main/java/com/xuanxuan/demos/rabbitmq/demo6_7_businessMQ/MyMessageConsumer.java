@@ -53,13 +53,16 @@ public class MyMessageConsumer {
         System.out.println("app = " + app);
         System.out.println("choices = " + choices);
 
-        // 4. 具体的执行任务逻辑
+        // 4. 修改当前任务在执行中
+        updateTaskStatusRunning();
+
+        // 5. 具体的执行任务逻辑
 
 
-        // 4.x 任务执行成功，更新任务状态成功
+        // 5.x 任务执行成功，更新任务状态成功
         updateTaskStatusSuccess();
 
-        // 5. 执行任务成功，返回 ACK
+        // 6. 执行任务成功，返回 ACK
         channel.basicAck(deliveryTag, false);
     }
 
@@ -98,5 +101,8 @@ public class MyMessageConsumer {
 
     private void updateTaskStatusSuccess() {
         System.out.println("[x] 修改数据库任务状态字段为成功: success");
+    }
+    private void updateTaskStatusRunning() {
+        System.out.println("[x] 修改数据库任务状态字段执行中: running");
     }
 }

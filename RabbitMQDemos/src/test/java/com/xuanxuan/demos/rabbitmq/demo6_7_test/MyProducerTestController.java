@@ -25,14 +25,14 @@ public class MyProducerTestController {
      * 这个是我真实改进项目的时候写的扔到消息队列的内容
      * 演示一下到底如何发对象和取对象，非常非常重要！！
      *
-     * 是一个 controller 中的 add 方法，本来业务非常复杂
-     * 涉及到多级缓存，我这里直接做了个简化，重点关注 MQ 的部分
+     * 是一个 controller 中的 add 方法，本来业务非常复杂 ->
+     * 涉及到多级缓存和大模型调用，我这里直接做了个简化，重点关注 MQ 的部分
      */
     @Test
     public void addUserAnswer() {
-        // 1. 修改数据库任务状态字段为执行中
+        // 1. 修改数据库任务状态字段为执行中 =>
         // 具体可以通过 new UserAnswer, setUserAnswer(id), service.updateById(userAnswer)
-        updateTaskStatusRunning();
+        updateTaskStatusWaiting();
 
         // 2. 提交任务到消息队列，具体的参数由消费者的需要来决定
         App app = new App();
@@ -72,7 +72,7 @@ public class MyProducerTestController {
         myMessageProducer.sendMessageWithId(String.valueOf(objectId), messageId);
     }
 
-    private void updateTaskStatusRunning() {
-        System.out.println("[x] 修改数据库任务状态字段为执行中: running");
+    private void updateTaskStatusWaiting() {
+        System.out.println("[x] 修改数据库任务状态字段为等待中: waiting");
     }
 }
