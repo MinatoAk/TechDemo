@@ -54,6 +54,8 @@
 ### demo 指南
 
 - demo1: 在 config 中自定义线程池并注册为单例 Bean，在 test 中演示如何提交任务到线程池以及如何监控线程池状态；
+- demo2: 展示了几种控制线程执行顺序的方式，包括 `join()`，`ReentrantLock + Condition` ，其中包含使用多线程连续顺序打印 `ABC` 字符的 demo；
+- demo3: 给出 `CompletableFuture` 的几种使用场景和具体使用方式；
 
 </br>
 
