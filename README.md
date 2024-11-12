@@ -44,6 +44,7 @@
 
 - demo1: 互斥锁解决缓存击穿问题，在本 demo 中，使用 Caffeine 本地缓存来缓存对象，并且使用 Redisson 分布式锁来解决缓存击穿问题。在 config 中配置了 Redisson 客户端，在 constant 中指明了相关的 `<lock_key>`，请您在自己写代码时也遵循相关规范；
 - demo2: 使用 Redisson 内置库实现令牌桶限流方法，区分普通用户和会员用户，封装了通用的方法，开箱即用；
+- demo3: 自己配置 redisTemplate 实现缓存的基本增删查改；
 
 </br>
 
@@ -56,6 +57,7 @@
 - demo1: 在 config 中自定义线程池并注册为单例 Bean，在 test 中演示如何提交任务到线程池以及如何监控线程池状态；
 - demo2: 展示了几种控制线程执行顺序的方式，包括 `join()`，`ReentrantLock + Condition` ，其中包含使用多线程连续顺序打印 `ABC` 字符的 demo；
 - demo3: 给出 `CompletableFuture` 的几种使用场景和具体使用方式；
+- demo4: 用定时任务做缓存预热的方式；
 
 </br>
 
