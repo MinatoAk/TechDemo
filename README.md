@@ -13,20 +13,19 @@
 - Redis
 - Concurrent Programming
 - RabbitMQ
+- Elasticsearch
 - Spring
 - DesignPattern
 
 </br>
 
-目前包括 Done:
+目前完成 Done:
 
 
 
 </br>
 
 即将到来 Coming Soon:
-
-- ElasticSearch
 
 </br>
 
@@ -94,6 +93,26 @@
 - demo7: 合并在 demo6 中，展示了如何给消息添加 TTL 和 messageId，有了 messageId 就可以保证消息的幂等性；
 
 - demo8: 在 config 中注册 RabbitAdmin，用于监控队列和交换机等信息，实现 RabbitService 提供获取某个队列当前任务数的方法；
+
+</br>
+
+</br>
+
+## Elasticsearch
+
+### 食用指南
+
+在使用前，请您先保证安装了 ES, Kibana，并且安装了中文友好的分词插件 IK 分词器，另外请在配置文件中进行相关配置的更改。
+
+
+
+### demo 指南
+
+- demo1: 展示了和 ES 交互的两种方式，test 下展示了如何具体进行 CRUD；
+
+  > 第 1 种方式: `ElasticsearchRepository<PostEsDTO, Long>` 提供的默认方法，也可以按照属性自定义，不用自己实现逻辑，这种方式非常简单；
+  >
+  > 第 2 种方式: `ElasticsearchRestTemplate` 实现复杂的查询过程，类似与 `queryWrapper` 的构造；
 
 </br>
 
