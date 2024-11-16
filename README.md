@@ -45,8 +45,10 @@
 
 - demo1: 互斥锁解决缓存击穿问题，在本 demo 中，使用 Caffeine 本地缓存来缓存对象，并且使用 Redisson 分布式锁来解决缓存击穿问题。在 config 中配置了 Redisson 客户端，在 constant 中指明了相关的 `<lock_key>`，请您在自己写代码时也遵循相关规范；
 - demo2: 使用 Redisson 内置库实现令牌桶限流方法，区分普通用户和会员用户，封装了通用的方法，开箱即用；
-- demo3: 自己配置 `redisTemplate` 实现缓存的基本增删查改，也可以使用 `stringRedisTemplate` 但是只支持存 value 为 String 类型，增加了可读性，自己配置的可以存多类型对象，但是牺牲了可读性；
+- demo3: 自己配置 `redisTemplate` 实现缓存的基本增删查改，也可以使用 `stringRedisTemplate` 但是只支持存 value 为 `String` 类型，增加了可读性，自己配置的可以存多类型对象，但是牺牲了可读性；
 - demo4: 用定时任务做缓存预热，使用分布式锁保证只有一台机器执行；
+- demo5: 使用 `ZSet` 实现了实时排行榜功能；
+- demo6: 保证缓存一致性，更改数据库之后的删除缓存部分的实现，利用 `SCAN` 命令，删除所有特定前缀的 keys；
 
 </br>
 
