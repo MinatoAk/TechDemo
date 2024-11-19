@@ -135,6 +135,7 @@
 - demo1: 使用 Spring MVC 拦截器进行性能监控，计算请求的处理时间；
 - demo2: 实现全局异常处理器，搭配自定义异常和状态码枚举类使用，另外还实现抛异常工具类，掌握了这个 demo 就明白了实际项目处理异常的流程；
 - demo3: AOP 实现权限校验功能；
+- demo4: 除了 `@Schedule` 注解之外的实现定时任务的两种方式: `Timer` 和 `ScheduledExecutorService`；
 
 </br>
 
