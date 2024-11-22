@@ -136,6 +136,7 @@
 - demo2: 实现全局异常处理器，搭配自定义异常和状态码枚举类使用，另外还实现抛异常工具类，掌握了这个 demo 就明白了实际项目处理异常的流程；
 - demo3: AOP 实现权限校验功能；
 - demo4: 除了 `@Schedule` 注解之外的实现定时任务的两种方式: `Timer` 和 `ScheduledExecutorService`；
+- demo5: 在配置文件中加上 `server.shutdown=graceful` 可以实现优雅停机，保证正在处理的所有请求执行完成之后再停机，另外还可以在启动类的 `run()` 前加上 `addShutdownHook` 在 JVM 停机前自定义执行逻辑；
 
 </br>
 
