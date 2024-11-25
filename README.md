@@ -48,7 +48,8 @@
 - demo3: 自己配置 `redisTemplate` 实现缓存的基本增删查改，也可以使用 `stringRedisTemplate` 但是只支持存 value 为 `String` 类型，增加了可读性，自己配置的可以存多类型对象，但是牺牲了可读性；
 - demo4: 用定时任务做缓存预热，使用分布式锁保证只有一台机器执行；
 - demo5: 使用 `ZSet` 实现了实时排行榜功能；
-- demo6: 保证缓存一致性，更改数据库之后的删除缓存部分的实现，利用 `SCAN` 命令，删除所有特定前缀的 keys；
+- demo6: Redis 保证缓存一致性，更改数据库之后的删除缓存部分的实现，利用 `SCAN` 命令，删除所有特定前缀的 keys；
+- demo7: Caffeine 保存缓存一致性，通过 `asMap` 拿到对应的 `ConcurrentHashMap` 之后遍历找到特定前缀的 keys 并且删除；
 
 </br>
 

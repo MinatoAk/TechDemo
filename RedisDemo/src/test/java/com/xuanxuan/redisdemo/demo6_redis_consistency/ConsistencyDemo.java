@@ -1,4 +1,4 @@
-package com.xuanxuan.redisdemo.demo6_consistency;
+package com.xuanxuan.redisdemo.demo6_redis_consistency;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
