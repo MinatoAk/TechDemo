@@ -50,6 +50,7 @@
 - demo5: 使用 `ZSet` 实现了实时排行榜功能；
 - demo6: Redis 保证缓存一致性，更改数据库之后的删除缓存部分的实现，利用 `SCAN` 命令，删除所有特定前缀的 keys；
 - demo7: Caffeine 保存缓存一致性，通过 `asMap` 拿到对应的 `ConcurrentHashMap` 之后遍历找到特定前缀的 keys 并且删除；
+- demo8: 使用 `BitMap` 实现用户签到及查询签到情况；
 
 </br>
 

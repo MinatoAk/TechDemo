@@ -3,7 +3,7 @@ package com.xuanxuan.redisdemo.demo1_CacheBreakDown;
 import cn.hutool.core.util.StrUtil;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.xuanxuan.redisdemo.constant.KeyTTLConstant;
+import com.xuanxuan.redisdemo.constant.RedisConstant;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class CacheBreakDownDemo {
         }
 
         // 3. 如果本地缓存不存在对象重建缓存
-        RLock lock = redissonClient.getLock(KeyTTLConstant.LOCK_KEY);
+        RLock lock = redissonClient.getLock(RedisConstant.LOCK_KEY);
 
         try {
             // 3.1 抢互斥锁
