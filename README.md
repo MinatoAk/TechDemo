@@ -114,17 +114,23 @@
 
 ### demo 指南
 
-- demo1: 展示了和 ES 交互的两种方式，test 下展示了如何具体进行 CRUD；
+- demo1: 展示了 Spring 中和 ES 交互(进行 CRUD)的两种方式 `ESDAO` 和 `ESRestTemplate`；
 
-  > 第 1 种方式: `ElasticsearchRepository<PostEsDTO, Long>` 提供的默认方法，也可以按照属性自定义，不用自己实现逻辑，这种方式非常简单；
+  > 第 1 种方式: `ElasticsearchRepository<PostEsDTO, Long>` 提供的默认方法，也可以按照属性自定义，不用自己实现逻辑，这种方式非常简单，能使用 `ESDAO` 的全部使用 `ESDAO` 完成；
+  >
+  > 具体实现: 先定义 DTO => 再定义 DAO => 最后直接注入 `ESDAO` 使用；
   >
   > 第 2 种方式: `ElasticsearchRestTemplate` 实现复杂的查询过程，类似与 `queryWrapper` 的构造；
+  >
+  > 具体实现: 先注入 `ESRestTemplate` => 再构造 `Query` 对象 => 调用 `ESRestTemplate` 的方法操作，传入 `Query` 和索引；
   
 - demo2: 提到 ElasticStack 当然就避不开 Elk 日志收集系统，该 demo 演示了如何把日志输入到指定路径中的文件，在 `resources/logback-spring.xml` 下有相关的配置，配置相关流程在 md 文件中可见；
 
   整个 Elk 的流程如下: FileBeat 订阅日志 => LogStash 解析过滤日志，得到 Json 格式数据 => ES 存储日志 => Kibana 展示；
 
   注意: 请务必务必保证下载的 FileBeat, LogStash, Kibana 的版本完全和 ES 的一致，否则可能有问题！
+  
+- demo3: 全量同步和增量同步数据库中的数据到 ES 中的方式；
 
 </br>
 

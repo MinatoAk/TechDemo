@@ -1,7 +1,5 @@
 package com.xuanxuan.elasticsearchdemos.demo1_CRUD;
 
-import com.xuanxuan.elasticsearchdemos.demo1_CRUD.PostEsDAO;
-import com.xuanxuan.elasticsearchdemos.demo1_CRUD.PostEsDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -15,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
-public class demo1_CRUDTest {
+public class demo1_ESDAO_CRUD {
 
     @Resource
     private PostEsDAO postEsDAO;

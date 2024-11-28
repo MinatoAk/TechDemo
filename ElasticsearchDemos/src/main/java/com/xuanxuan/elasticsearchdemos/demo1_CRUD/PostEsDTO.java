@@ -14,6 +14,8 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * 这边已经通过 Kibana 控制台 PUT 过了一个帖子的索引
  * 具体的建立索引 Mapping 的语句放在 markdown 文件中了
  */
+
+// 指定和哪个索引绑定
 @Document(indexName = "post")
 @Data
 public class PostEsDTO implements Serializable {

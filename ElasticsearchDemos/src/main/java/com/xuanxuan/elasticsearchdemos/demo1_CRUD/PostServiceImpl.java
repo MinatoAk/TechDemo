@@ -21,6 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 通过 ESRestTemplate 查询
+ * 以后需要查询的时候直接复制黏贴然后改就行了
+ */
 @Service
 public class PostServiceImpl implements PostService {
 
@@ -44,7 +48,7 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public void searchFromEs() {
-        // 1. 从前端传入的参数中拿出对应参数
+        // 0) 从前端传入的参数中拿出对应参数
         Long id = 1L;
         Long notId = null;
         String searchText = null;
@@ -58,9 +62,10 @@ public class PostServiceImpl implements PostService {
         String sortField = null;
         String sortOrder = null;
 
-        // 2. 根据 DSL 构建查询条件
+        // 1) 构造 boolQuery 查询条件
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
 
+        // 1.1) 过滤
         boolQueryBuilder.filter(QueryBuilders.termQuery("isDelete", 0));
         if (id != null) boolQueryBuilder.filter(QueryBuilders.termQuery("id", id));
         if (notId != null) boolQueryBuilder.mustNot(QueryBuilders.termQuery("id", notId));
@@ -74,16 +79,16 @@ public class PostServiceImpl implements PostService {
         }
 
         // 包含任何一个标签即可
-        if (CollectionUtils.isNotEmpty(orTagList)) {
-            BoolQueryBuilder orTagBoolQueryBuilder = QueryBuilders.boolQuery();
-            for (String tag : orTagList) {
-                orTagBoolQueryBuilder.should(QueryBuilders.termQuery("tags", tag));
-            }
-            orTagBoolQueryBuilder.minimumShouldMatch(1);
-            boolQueryBuilder.filter(orTagBoolQueryBuilder);
-        }
+//        if (CollectionUtils.isNotEmpty(orTagList)) {
+//            BoolQueryBuilder orTagBoolQueryBuilder = QueryBuilders.boolQuery();
+//            for (String tag : orTagList) {
+//                orTagBoolQueryBuilder.should(QueryBuilders.termQuery("tags", tag));
+//            }
+//            orTagBoolQueryBuilder.minimumShouldMatch(1);
+//            boolQueryBuilder.filter(orTagBoolQueryBuilder);
+//        }
 
-        // 按关键词检索
+        // 1.2) 关键: 按关键词检索
         if (StringUtils.isNotBlank(searchText)) {
             boolQueryBuilder.should(QueryBuilders.matchQuery("title", searchText));
             boolQueryBuilder.should(QueryBuilders.matchQuery("content", searchText));
@@ -102,21 +107,24 @@ public class PostServiceImpl implements PostService {
             boolQueryBuilder.minimumShouldMatch(1);
         }
 
-        // 3. 排序条件
+        // 1.3) 排序条件
         SortBuilder<?> sortBuilder = SortBuilders.scoreSort();
         if (StringUtils.isNotBlank(sortField)) {
             sortBuilder = SortBuilders.fieldSort(sortField);
             sortBuilder.order("ascend".equals(sortOrder) ? SortOrder.ASC : SortOrder.DESC);
         }
-        // 4. 分页条件
+        // 1.4) 分页条件
         PageRequest pageRequest = PageRequest.of((int) current, (int) pageSize);
 
-        // 5. 构造查询
+
+        // 2) 构造查询 Query
         NativeSearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(boolQueryBuilder)
                 .withPageable(pageRequest).withSorts(sortBuilder).build();
+
+        // 3) 执行查询
         SearchHits<PostEsDTO> searchHits = elasticsearchRestTemplate.search(searchQuery, PostEsDTO.class);
 
-        // 6. 查询数据库获取完整结果，这里直接做了个简化
+        // 4) 查询数据库获取完整结果，这里直接做了个简化
         // 如果数据库查询不到数据，应该在 ES 删除对应记录
         // -> String delete = elasticsearchRestTemplate.delete(String.valueOf(postId), PostEsDTO.class);
         if (searchHits.hasSearchHits()) {
