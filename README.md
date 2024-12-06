@@ -64,6 +64,7 @@
 - demo2: 展示了几种控制线程执行顺序的方式，包括 `join()`，`ReentrantLock + Condition` ，其中包含使用多线程连续顺序打印 `ABC` 字符的 demo；
 - demo3: 给出 `CompletableFuture` 的几种使用场景和具体使用方式；
 - demo4: 提交批处理任务到线程池并发执行的通用模式；
+- demo5: 字节算法题: 三个线程连续打印123，和 demo2 是不同的解法，本解法更好理解；
 
 </br>
 
