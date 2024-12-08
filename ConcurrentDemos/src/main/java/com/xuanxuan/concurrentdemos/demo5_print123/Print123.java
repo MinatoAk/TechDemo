@@ -39,6 +39,7 @@ public class Print123 {
                     // 1) 如果不是当前数字打印，则阻塞等锁
                     while (number != number2Print.get()) {
                         try {
+                            // wait 是会主动放锁的
                             lock.wait();
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
