@@ -165,3 +165,10 @@
 </br>
 
 </br>
+
+## Algorithm
+
+### demo 指南
+
+- cpp demo1: ACM 模式下构造二叉树的方式；
+- cpp demo2: ACM 模式下构造链表的方式；
