@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.vue": "html",
-        "vector": "cpp"
+        "vector": "cpp",
+        "queue": "cpp"
     }
 }
