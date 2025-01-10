@@ -4,6 +4,8 @@
         "vector": "cpp",
         "queue": "cpp",
         "ostream": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "xstring": "cpp",
+        "unordered_map": "cpp"
     }
 }
