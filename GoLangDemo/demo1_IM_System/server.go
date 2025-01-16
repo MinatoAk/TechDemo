@@ -5,6 +5,7 @@ import (
 	"io"
 	"net"
 	"sync"
+	"time"
 )
 
 type Server struct {
@@ -58,6 +59,8 @@ func (server *Server) HandleConn(conn net.Conn) {
 	// 2) 广播用户上线消息
 	server.BroadCast(user, "current user online.")
 
+	isLive := make(chan bool)
+
 	// 3) 接收用户消息
 	go func() {
 		buf := make([]byte, 4096)
@@ -87,6 +90,8 @@ func (server *Server) HandleConn(conn net.Conn) {
 			// 3.4) 处理正常接收到的消息
 			msg := string(buf[:n-1])
 
+			isLive <- true
+
 			if msg == "who" {
 				// 3.4.1) who: 该命令用于查询所有登录用户
 				user.FindOnlineUsers(server)
@@ -109,6 +114,26 @@ func (server *Server) HandleConn(conn net.Conn) {
 		}
 	}()
 
+	// 4) 处理用户超时踢出
+	for {
+		select {
+		case <-isLive:
+			// 4.1) 用户活跃中，什么也不做，执行下面的语句重置定时器
+
+		case <-time.After(time.Second * 300):
+			// 4.2) 用户超时，踢出用户
+			user.Channel <- "time out, you are kicked out.\n"
+
+			conn.Close()
+			close(user.Channel)
+
+			server.mapLock.Lock()
+			delete(server.OnlineUserMap, user.Name)
+			server.mapLock.Unlock()
+
+			return
+		}
+	}
 }
 
 /**
