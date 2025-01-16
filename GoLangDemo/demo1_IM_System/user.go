@@ -1,6 +1,9 @@
 package main
 
-import "net"
+import (
+	"fmt"
+	"net"
+)
 
 type User struct {
 	Name       string
@@ -34,4 +37,31 @@ func (user *User) ListenMessage() {
 		msg := <-user.Channel
 		user.Connection.Write([]byte(msg + "\n"))
 	}
+}
+
+/**
+*	User: 查询当前在线用户
+**/
+func (user *User) FindOnlineUsers(server *Server) {
+	server.mapLock.Lock()
+
+	for _, user := range server.OnlineUserMap {
+		msg := fmt.Sprintf("[%s] %s", user.Address, user.Name)
+		user.Channel <- msg
+	}
+
+	server.mapLock.Unlock()
+}
+
+/**
+*	User: 修改用户名
+**/
+func (user *User) UpdateUserName(newName string, server *Server) {
+	server.mapLock.Lock()
+	server.OnlineUserMap[newName] = user
+	delete(server.OnlineUserMap, user.Name)
+	server.mapLock.Unlock()
+
+	user.Name = newName
+	user.Channel <- "You have changed your name to " + newName + "\n"
 }

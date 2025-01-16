@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net"
 	"sync"
 )
@@ -44,14 +45,6 @@ func (server *Server) SendBroadCastMsg() {
 }
 
 /**
-*	Server.HandleConn: 将用户消息扔到广播 channel
-**/
-func (server *Server) BroadCast(user *User, msg string) {
-	sendMsg := fmt.Sprintf("[%s]: %s", user.Name, msg)
-	server.GlobalChannel <- sendMsg
-}
-
-/**
 *	Server: 具体处理连接的业务逻辑
 **/
 func (server *Server) HandleConn(conn net.Conn) {
@@ -64,6 +57,66 @@ func (server *Server) HandleConn(conn net.Conn) {
 
 	// 2) 广播用户上线消息
 	server.BroadCast(user, "current user online.")
+
+	// 3) 接收用户消息
+	go func() {
+		buf := make([]byte, 4096)
+
+		for {
+			// 3.1) 读入用户消息
+			// n 表示读入的字节数
+			n, err := conn.Read(buf)
+
+			// 3.2) 当前用户下线
+			if n == 0 {
+				server.BroadCast(user, "current user offline.")
+
+				server.mapLock.Lock()
+				delete(server.OnlineUserMap, user.Name)
+				server.mapLock.Unlock()
+
+				return
+			}
+
+			// 3.3) 读入数据异常
+			if err != nil && err != io.EOF {
+				fmt.Println("[x] conn.Read err:", err)
+				return
+			}
+
+			// 3.4) 处理正常接收到的消息
+			msg := string(buf[:n-1])
+
+			if msg == "who" {
+				// 3.4.1) who: 该命令用于查询所有登录用户
+				user.FindOnlineUsers(server)
+
+			} else if len(msg) > 7 && msg[:7] == "rename|" {
+				// 3.4.2) rename|newName: 该命令用于修改用户名
+				newName := msg[7:]
+
+				// 判断当前用户名是否已经占用
+				_, ok := server.OnlineUserMap[newName]
+				if ok {
+					user.Channel <- "this name has been used, please change another one.\n"
+				} else {
+					user.UpdateUserName(newName, server)
+				}
+
+			} else {
+				server.BroadCast(user, msg)
+			}
+		}
+	}()
+
+}
+
+/**
+*	Server.HandleConn: 将用户消息扔到广播 channel
+**/
+func (server *Server) BroadCast(user *User, msg string) {
+	sendMsg := fmt.Sprintf("[%s]: %s", user.Name, msg)
+	server.GlobalChannel <- sendMsg
 }
 
 /**
