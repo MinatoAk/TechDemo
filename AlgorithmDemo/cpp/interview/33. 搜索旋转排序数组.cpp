@@ -35,7 +35,7 @@ int main() {
         else st = mid + 1;
     } 
 
-    if (st >= n || nums[st] != target) cout << -1 << endl;
+    if (st > ed || nums[st] != target) cout << -1 << endl;
     else cout << st << endl;
 
     return 0;

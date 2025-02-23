@@ -39,7 +39,7 @@ int quickSelect(int l, int r, int kk) {
 
     int rLen = r - j;
     if (rLen >= kk) return quickSelect(j + 1, r, kk);
-    return quickSelect(l, j, k - rLen);
+    return quickSelect(l, j, kk - rLen);
 }
 
 int main() {

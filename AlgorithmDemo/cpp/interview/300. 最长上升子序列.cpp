@@ -24,7 +24,7 @@ int main() {
         else {
             if (pos[0] >= x) pos[0] = x;
             else {
-                int l = 0, r = pos.size();
+                int l = 0, r = pos.size() - 1;
                 while (l < r) {
                     int mid = l + r >> 1;
                     if (pos[mid] >= x) r = mid;

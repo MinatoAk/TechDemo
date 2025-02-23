@@ -8,24 +8,27 @@ using namespace std;
 int n, m;
 vector<int> a, b;
 
-int findKth(vector<int> nums1, int i, vector<int> nums2, int j, int k) {
-    if (nums1.size() - i > nums2.size() - j) return findKth(nums2, j, nums1, i, k);
+int findKthMin(vector<int> nums1, int i, vector<int> nums2, int j, int k) {
+    // 1) 先保证 nums1 是长度小的数组
+    if (nums1.size() - i > nums2.size() - j) return findKthMin(nums2, j, nums1, i, k);
 
+    // 2) 递归终止条件: nums1 为空或 k == 1
     if (nums1.size() == i) return nums2[j + k - 1];
     if (k == 1) return min(nums1[i], nums2[j]);
 
+    // 3) 类似于归并
     int si = min(i + k / 2, (int)nums1.size()), sj = j + k / 2;
-    if (nums1[si - 1] > nums2[sj - 1]) return findKth(nums1, i, nums2, sj, k - k / 2);
-    return findKth(nums1, si, nums2, j, k - (si - i));
+    if (nums1[si - 1] > nums2[sj - 1]) return findKthMin(nums1, i, nums2, sj, k - k / 2);
+    return findKthMin(nums1, si, nums2, j, k - (si - i));
 }
 
 double getRes() {
     int sz = n + m;
 
-    if (sz & 1) return findKth(a, 0, b, 0, sz / 2 + 1) * 1.0;
+    if (sz & 1) return findKthMin(a, 0, b, 0, sz / 2 + 1) * 1.0;
 
-    int l = findKth(a, 0, b, 0, sz / 2);
-    int r = findKth(a, 0, b, 0, sz / 2 + 1);
+    int l = findKthMin(a, 0, b, 0, sz / 2);
+    int r = findKthMin(a, 0, b, 0, sz / 2 + 1);
 
     return (l + r) / 2.0;
 }
